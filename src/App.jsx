@@ -10,8 +10,8 @@ import pic6 from './assets/images/image-6.webp';
 import pic7 from './assets/images/image-7.webp';
 import pic8 from './assets/images/image-8.webp';
 import pic9 from './assets/images/image-9.webp';
-import pic10 from './assets/images/image-10.jpeg';
-import pic11 from './assets/images/image-11.jpeg';
+import pic10 from './assets/images/image-10.webp';
+import pic11 from './assets/images/image-11.webp';
 
 function App() {
   const [pic1s,setPic1] = useState(0);
@@ -26,18 +26,22 @@ function App() {
   const [pic10s,setPic10] = useState(0);
   const [pic11s,setPic11] = useState(0);
 
-  const pics = [pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8,pic9,pic10,pic11,pic11,pic11,pic11,pic11,pic11,pic11];
+  const pics = [pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8,pic9,pic10,pic11,pic11,pic11,pic11];
+
+  function handleDrag(e) {
+    console.log(e.target);
+  };
   const imageCards = pics.map((pic,index) => {
     if (index===0) {
       return (
-        <Card style={{width: '350px', height: '350px', margin: '15px'}}>
-          <CardImg src={pic} alt='b' />
-        </Card>
+          <Card style={{width: '350px', height: '350px', margin: '15px'}}>
+            <CardImg src={pic} alt='b'  onDrag={handleDrag}/>
+          </Card>
       );
     } else {
       return (
         <Card style={{display: 'flex', width: '160px', height: '160px', margin: '15px'}}>
-          <CardImg src={pic} alt='b' />
+          <CardImg src={pic} alt='b' onDrag={handleDrag}/>
         </Card>
       );
     }
@@ -60,24 +64,21 @@ function App() {
                 {imageCards[2]}
                 {imageCards[3]}
                 {imageCards[4]}
-                {imageCards[5]}
               </div>
               <div className='row'>
+                {imageCards[5]}
                 {imageCards[6]}
                 {imageCards[7]}
                 {imageCards[8]}
-                {imageCards[9]}
-                {imageCards[10]}
               </div>
             </div>
           </div>
           <div className='row' style={{marginLeft: '1px'}}> 
+            {imageCards[9]}
+            {imageCards[10]}
             {imageCards[11]}
             {imageCards[12]}
             {imageCards[13]}
-            {imageCards[14]}
-            {imageCards[15]}
-            {imageCards[16]}
             <Card style={{textAlign: 'center', width: '160px', height: '160px', margin: '15px'}}>
               <h4 style={{paddingTop: '50px'}}>Add Image</h4>
             </Card>
