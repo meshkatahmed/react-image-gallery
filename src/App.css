@@ -3,17 +3,7 @@
   margin: 2px;
   padding: 10px;
 }
-.row {
-  display:flex;
+.card .card-body .row .card .card-img:hover {
+  opacity: 10;
 }
-.column {
-  /* margin-top: 3px;
-  margin-bottom: 3px;
-  margin-right: 3px;
-  margin-left: 3px; */
-  width: 375px;
-}
-img {
-  height: 350px;
-  width: 350px;
-}
+

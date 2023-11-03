@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import {Button, Card,CardBody,CardHeader,CardImg,CardTitle} from 'reactstrap';
+import {Card,CardBody,CardHeader,CardImg,CardTitle,Button} from 'reactstrap';
 import './App.css';
+import FeatureImage from './components/images/FeatureImage';
+import RegularImage from './components/images/RegularImage';
+import AddImage from './components/images/AddImage';
 import pic1 from './assets/images/image-1.webp';
 import pic2 from './assets/images/image-2.webp';
 import pic3 from './assets/images/image-3.webp';
@@ -13,55 +16,101 @@ import pic9 from './assets/images/image-9.webp';
 import pic10 from './assets/images/image-10.webp';
 import pic11 from './assets/images/image-11.webp';
 
-function App() {
-  const [pic1s,setPic1] = useState(0);
-  const [pic2s,setPic2] = useState(0);
-  const [pic3s,setPic3] = useState(0);
-  const [pic4s,setPic4] = useState(0);
-  const [pic5s,setPic5] = useState(0);
-  const [pic6s,setPic6] = useState(0);
-  const [pic7s,setPic7] = useState(0);
-  const [pic8s,setPic8] = useState(0);
-  const [pic9s,setPic9] = useState(0);
-  const [pic10s,setPic10] = useState(0);
-  const [pic11s,setPic11] = useState(0);
+export default function App() {
+  const [images,setImages] = useState([
+    {id: 1, src: pic1, selected : false, status: true},
+    {id: 2, src: pic2, selected : false, status: true},
+    {id: 3, src: pic3, selected : false, status: true},
+    {id: 4, src: pic4, selected : false, status: true},
+    {id: 5, src: pic5, selected : false, status: true},
+    {id: 6, src: pic6, selected : false, status: true},
+    {id: 7, src: pic7, selected : false, status: true},
+    {id: 8, src: pic8, selected : false, status: true},
+    {id: 9, src: pic9, selected : false, status: true},
+    {id: 10, src: pic10, selected : false, status: true},
+    {id: 11, src: pic11, selected : false, status: true},
+  ]); 
 
-  const pics = [pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8,pic9,pic10,pic11,pic11];
+  let style = {margin: '15px', padding: '2px'};
+  let selectedFiles = images.reduce((result,image) => {
+    image.selected ? result = result + 1 : result = result;
+    return result;
+  },0);
+  
+  function handleHover(e) {
+    e.target.style.opacity = '30%';
+  }
 
-  function handleDrag(e) {
-    console.log(e.target);
-  };
-  const imageCards = pics.map((pic,index) => {
-    if (index===0) {
-      return (
-          <Card style={{width: '350px', height: '350px', margin: '15px'}}>
-            <CardImg src={pic} alt='b'  onDrag={handleDrag}/>
-          </Card>
-      );
+  function handleHoverEnd(e) {
+    e.target.style.opacity = '';
+  }
+  
+  function handleClick(e,image) {
+    if (!image.selected) {
+      image.selected = true;
+      e.target.style.border = 'solid blue';
     } else {
-      return (
-        <Card style={{display: 'flex', width: '160px', height: '160px', margin: '15px'}}>
-          <CardImg src={pic} alt='b' onDrag={handleDrag}/>
-        </Card>
-      );
+      image.selected = false;
+      e.target.style.border = '';
     }
-  });
+    setImages(images.map(pic => {
+      if (pic.id != image.id) return pic 
+      return image;
+    }));
+  }
+
+  const title = selectedFiles ? 
+    selectedFiles===1 ? 
+      <CardTitle>
+        <input type='checkbox' defaultChecked/> 
+        {selectedFiles} File Selected 
+        <button type='button' className='btn btn-light'>Delete File</button>
+      </CardTitle> :
+      <CardTitle>
+        <input type='checkbox' defaultChecked/> 
+        {selectedFiles} Files Selected 
+        <button type='button' className='btn btn-light'>Delete Files</button>
+      </CardTitle>
+    :
+    <CardTitle>Image Gallery</CardTitle>;
 
   return (
     <Card style={{margin: '10px'}}>
       <CardHeader>
-        <CardTitle>Image Gallery</CardTitle>
+        {title}
       </CardHeader>
       <CardBody style={{padding: '10px'}}>
         <div className='row'>
-          {imageCards}
-          <Card style={{textAlign: 'center', width: '160px', height: '160px', margin: '15px'}}>
-            <h4 style={{paddingTop: '50px'}}>Add Image</h4>
-          </Card>
+          {images.map((image,index) => {
+            if (index===0) {
+              return (
+                <FeatureImage 
+                  key={image.id} 
+                  image={image} 
+                  style={style} 
+                  handleClick={handleClick} 
+                  handleHover={handleHover} 
+                  handleHoverEnd={handleHoverEnd}
+                />
+              );
+            } else {
+              return (
+                <RegularImage 
+                  key={image.id} 
+                  image={image} 
+                  style={style} 
+                  handleClick={handleClick} 
+                  handleHover={handleHover} 
+                  handleHoverEnd={handleHoverEnd}
+                />
+              );
+            }
+           })
+          }
+          <AddImage />
         </div>
       </CardBody>
     </Card>
   )
 }
 
-export default App;
