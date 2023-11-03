@@ -26,7 +26,7 @@ function App() {
   const [pic10s,setPic10] = useState(0);
   const [pic11s,setPic11] = useState(0);
 
-  const pics = [pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8,pic9,pic10,pic11,pic11,pic11,pic11];
+  const pics = [pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8,pic9,pic10,pic11,pic11];
 
   function handleDrag(e) {
     console.log(e.target);
@@ -54,35 +54,10 @@ function App() {
       </CardHeader>
       <CardBody style={{padding: '10px'}}>
         <div className='row'>
-          <div className='row'>
-            <div className='col-4'>
-              {imageCards[0]}
-            </div>
-            <div className='col-8'>
-              <div className='row'>
-                {imageCards[1]}
-                {imageCards[2]}
-                {imageCards[3]}
-                {imageCards[4]}
-              </div>
-              <div className='row'>
-                {imageCards[5]}
-                {imageCards[6]}
-                {imageCards[7]}
-                {imageCards[8]}
-              </div>
-            </div>
-          </div>
-          <div className='row' style={{marginLeft: '1px'}}> 
-            {imageCards[9]}
-            {imageCards[10]}
-            {imageCards[11]}
-            {imageCards[12]}
-            {imageCards[13]}
-            <Card style={{textAlign: 'center', width: '160px', height: '160px', margin: '15px'}}>
-              <h4 style={{paddingTop: '50px'}}>Add Image</h4>
-            </Card>
-          </div>
+          {imageCards}
+          <Card style={{textAlign: 'center', width: '160px', height: '160px', margin: '15px'}}>
+            <h4 style={{paddingTop: '50px'}}>Add Image</h4>
+          </Card>
         </div>
       </CardBody>
     </Card>
