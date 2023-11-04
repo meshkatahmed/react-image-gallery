@@ -7,11 +7,12 @@ export default function FeatureImage({image,style,handleClick,handleDragStart,ha
             onClick={(e)=>handleClick(e,image)}
             onDragStart={handleDragStart}
             onDragOver={handleDragOver}
-            // onDrop={handleDrop}
+            onDrop={handleDrop} 
             onMouseOver={handleHover}
             onMouseOut={handleHoverEnd}
+            draggable='true'
         >
-            <CardImg src={image.src} alt='b' />
+            <CardImg id={image.id} src={image.src} alt='b' />
         </Card>
     );
 };

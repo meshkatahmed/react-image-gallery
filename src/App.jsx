@@ -37,7 +37,7 @@ export default function App() {
     image.selected ? result = result + 1 : result = result;
     return result;
   },0);
-  
+
   function handleHover(e) {
     e.target.style.opacity = '30%';
   }
@@ -59,15 +59,23 @@ export default function App() {
       return image;
     }));
   }
+
   function handleDragStart(e) {
-    console.log(e.target);
+    e.dataTransfer.setData('webp',e.target.id);
   }
+  
   function handleDragOver(e) {
-    console.log(e.target);
+    e.preventDefault();
   }
-  // function handleDrop(e) {
-  //   console.log(e.target);
-  // }
+
+  function handleDrop(e) {
+    const data = e.dataTransfer.getData('webp');
+    const source = document.getElementById(data);
+    const targetParent = e.target.parentElement;
+    source.parentElement.appendChild(e.target);
+    targetParent.appendChild(source);
+  }
+
   function handleDelete(e) {
     setImages(images.map(image => {
       if (image.selected) {
@@ -78,6 +86,7 @@ export default function App() {
       return image;
     }));
   }
+  
   const title = selectedFiles ? 
     selectedFiles===1 ? 
       <CardTitle>
@@ -110,7 +119,7 @@ export default function App() {
                   handleClick={handleClick}
                   handleDragStart={handleDragStart} 
                   handleDragOver={handleDragOver}
-                  // handleDrop={handleDrop}
+                  handleDrop={handleDrop}
                   handleHover={handleHover} 
                   handleHoverEnd={handleHoverEnd}
                 />
@@ -124,7 +133,7 @@ export default function App() {
                   handleClick={handleClick} 
                   handleDragStart={handleDragStart}
                   handleDragOver={handleDragOver}
-                  // handleDrop={handleDrop}
+                  handleDrop={handleDrop}
                   handleHover={handleHover} 
                   handleHoverEnd={handleHoverEnd}
                 />
