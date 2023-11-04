@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Card,CardBody,CardHeader,CardImg,CardTitle,Button} from 'reactstrap';
+import {Card,CardBody,CardHeader,CardTitle} from 'reactstrap';
 import './App.css';
 import FeatureImage from './components/images/FeatureImage';
 import RegularImage from './components/images/RegularImage';
@@ -30,7 +30,8 @@ export default function App() {
     {id: 10, src: pic10, selected : false, status: true},
     {id: 11, src: pic11, selected : false, status: true},
   ]); 
-
+  
+  let activeImages = images.filter(image=>{return image.status});
   let style = {margin: '15px', padding: '2px'};
   let selectedFiles = images.reduce((result,image) => {
     image.selected ? result = result + 1 : result = result;
@@ -59,17 +60,27 @@ export default function App() {
     }));
   }
 
+  function handleDelete(e) {
+    setImages(images.map(image => {
+      if (image.selected) {
+        image.status=false;
+        image.selected=false;
+        return image;
+      }
+      return image;
+    }));
+  }
   const title = selectedFiles ? 
     selectedFiles===1 ? 
       <CardTitle>
         <input type='checkbox' defaultChecked/> 
         {selectedFiles} File Selected 
-        <button type='button' className='btn btn-light'>Delete File</button>
+        <button type='button' onClick={handleDelete} className='btn btn-light'>Delete File</button>
       </CardTitle> :
       <CardTitle>
         <input type='checkbox' defaultChecked/> 
         {selectedFiles} Files Selected 
-        <button type='button' className='btn btn-light'>Delete Files</button>
+        <button type='button' onClick={handleDelete} className='btn btn-light'>Delete Files</button>
       </CardTitle>
     :
     <CardTitle>Image Gallery</CardTitle>;
@@ -81,8 +92,8 @@ export default function App() {
       </CardHeader>
       <CardBody style={{padding: '10px'}}>
         <div className='row'>
-          {images.map((image,index) => {
-            if (index===0) {
+          {activeImages.map((image,index) => {
+            if (!index) {
               return (
                 <FeatureImage 
                   key={image.id} 
