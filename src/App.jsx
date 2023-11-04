@@ -30,7 +30,7 @@ export default function App() {
     {id: 10, src: pic10, selected : false, status: true},
     {id: 11, src: pic11, selected : false, status: true},
   ]); 
-  
+
   let activeImages = images.filter(image=>{return image.status});
   let style = {margin: '15px', padding: '2px'};
   let selectedFiles = images.reduce((result,image) => {
@@ -59,7 +59,15 @@ export default function App() {
       return image;
     }));
   }
-
+  function handleDragStart(e) {
+    console.log(e.target);
+  }
+  function handleDragOver(e) {
+    console.log(e.target);
+  }
+  // function handleDrop(e) {
+  //   console.log(e.target);
+  // }
   function handleDelete(e) {
     setImages(images.map(image => {
       if (image.selected) {
@@ -99,7 +107,10 @@ export default function App() {
                   key={image.id} 
                   image={image} 
                   style={style} 
-                  handleClick={handleClick} 
+                  handleClick={handleClick}
+                  handleDragStart={handleDragStart} 
+                  handleDragOver={handleDragOver}
+                  // handleDrop={handleDrop}
                   handleHover={handleHover} 
                   handleHoverEnd={handleHoverEnd}
                 />
@@ -111,6 +122,9 @@ export default function App() {
                   image={image} 
                   style={style} 
                   handleClick={handleClick} 
+                  handleDragStart={handleDragStart}
+                  handleDragOver={handleDragOver}
+                  // handleDrop={handleDrop}
                   handleHover={handleHover} 
                   handleHoverEnd={handleHoverEnd}
                 />
