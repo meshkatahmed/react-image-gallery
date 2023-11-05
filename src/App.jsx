@@ -71,9 +71,17 @@ export default function App() {
   function handleDrop(e) {
     const data = e.dataTransfer.getData('webp');
     const source = document.getElementById(data);
+    // const sourceSrc = source.src;
+    // const targetSrc = e.target.src;
+    // console.log(sourceSrc,targetSrc);
     const targetParent = e.target.parentElement;
     source.parentElement.appendChild(e.target);
     targetParent.appendChild(source);
+    // setImages(images.map(image => {
+    //   if (image.id===source.id) image.src = targetSrc;
+    //   else if (image.id===e.target.id) image.src = sourceSrc;
+    //   return image;
+    // }));
   }
 
   function handleDelete(e) {
@@ -81,7 +89,6 @@ export default function App() {
       if (image.selected) {
         image.status=false;
         image.selected=false;
-        return image;
       }
       return image;
     }));
@@ -101,7 +108,7 @@ export default function App() {
       </CardTitle>
     :
     <CardTitle>Image Gallery</CardTitle>;
-
+  console.log(images);
   return (
     <Card style={{margin: '10px'}}>
       <CardHeader>
