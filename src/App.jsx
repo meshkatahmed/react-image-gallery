@@ -18,17 +18,17 @@ import pic11 from './assets/images/image-11.webp';
 
 export default function App() {
   const [images,setImages] = useState([
-    {id: 1, src: pic1, selected : false, status: true},
-    {id: 2, src: pic2, selected : false, status: true},
-    {id: 3, src: pic3, selected : false, status: true},
-    {id: 4, src: pic4, selected : false, status: true},
-    {id: 5, src: pic5, selected : false, status: true},
-    {id: 6, src: pic6, selected : false, status: true},
-    {id: 7, src: pic7, selected : false, status: true},
-    {id: 8, src: pic8, selected : false, status: true},
-    {id: 9, src: pic9, selected : false, status: true},
-    {id: 10, src: pic10, selected : false, status: true},
-    {id: 11, src: pic11, selected : false, status: true},
+    {id: 1, path: pic1, selected : false, status: true},
+    {id: 2, path: pic2, selected : false, status: true},
+    {id: 3, path: pic3, selected : false, status: true},
+    {id: 4, path: pic4, selected : false, status: true},
+    {id: 5, path: pic5, selected : false, status: true},
+    {id: 6, path: pic6, selected : false, status: true},
+    {id: 7, path: pic7, selected : false, status: true},
+    {id: 8, path: pic8, selected : false, status: true},
+    {id: 9, path: pic9, selected : false, status: true},
+    {id: 10, path: pic10, selected : false, status: true},
+    {id: 11, path: pic11, selected : false, status: true},
   ]); 
 
   let activeImages = images.filter(image=>{return image.status});
@@ -61,7 +61,7 @@ export default function App() {
   }
 
   function handleDragStart(e) {
-    e.dataTransfer.setData('webp',e.target.id);
+    e.dataTransfer.setData('webp',e.target.id); // set the id of the element as data
   }
   
   function handleDragOver(e) {
@@ -69,19 +69,17 @@ export default function App() {
   }
 
   function handleDrop(e) {
-    const data = e.dataTransfer.getData('webp');
-    const source = document.getElementById(data);
-    // const sourceSrc = source.src;
-    // const targetSrc = e.target.src;
-    // console.log(sourceSrc,targetSrc);
-    const targetParent = e.target.parentElement;
-    source.parentElement.appendChild(e.target);
-    targetParent.appendChild(source);
-    // setImages(images.map(image => {
-    //   if (image.id===source.id) image.src = targetSrc;
-    //   else if (image.id===e.target.id) image.src = sourceSrc;
-    //   return image;
-    // }));
+    const data = e.dataTransfer.getData('webp'); // get the id of the source element as data
+    const sourceState = images.filter(image=>image.id==data)[0];
+    const sourcePath = sourceState.path;
+    const targetState = images.filter(image=>image.id==e.target.id)[0];
+    const targetPath = targetState.path;
+    
+    setImages(images.map(image => {
+      if (image.id==data) image.path = targetPath;
+      else if (image.id==e.target.id) image.path = sourcePath;
+      return image;
+    }));
   }
 
   function handleDelete(e) {

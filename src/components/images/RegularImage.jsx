@@ -12,7 +12,7 @@ export default function RegularImage({image,style,handleClick,handleDragStart,ha
             onMouseOut={handleHoverEnd}
             draggable='true'
         >
-            <CardImg id={image.id} src={image.src} alt='b' />
+            <CardImg id={image.id} src={image.path} alt='b' />
         </Card>
     );
 }
