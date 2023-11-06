@@ -61,7 +61,7 @@ export default function App() {
   }
 
   function handleDragStart(e) {
-    e.dataTransfer.setData('webp',e.target.id); // set the id of the element as data
+    e.dataTransfer.setData('webp',e.target.id); // set the id of the drag element as data
   }
   
   function handleDragOver(e) {
@@ -69,7 +69,7 @@ export default function App() {
   }
 
   function handleDrop(e) {
-    const data = e.dataTransfer.getData('webp'); // get the id of the source element as data
+    const data = e.dataTransfer.getData('webp'); // get the id of the source(drag) element as data
     const sourceState = images.filter(image=>image.id==data)[0];
     const sourcePath = sourceState.path;
     const targetState = images.filter(image=>image.id==e.target.id)[0];
